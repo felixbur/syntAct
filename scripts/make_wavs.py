@@ -28,6 +28,7 @@ phrases = [p.split('\t')[-1].strip() for p in phrases]
 
 # maximum number of generate wav files
 max_wave_num = 10000000
+min_length = 500
 index = 0
 path = audeer.mkdir(wav_folder)+'/'
 
@@ -45,10 +46,10 @@ for vi, voc in enumerate(constant.VOICES):
                 cmd += ' --play'
             os.system(cmd)
             sig, sr = af.read(path+name)
-            if len(sig) <= 100:
+            if len(sig) < min_length:
                 """ There is quite a lot of stuff that might go wrong, emofilt has the tendency to make pho file unrenderable 
-                (eg. when phonemes become to short). Also MARY does not support all German voices properly, e.g. uses phonene symbols
-                that are not part of the voice.
+                (eg. when phonemes become too short or because of vowel target over/undershoot).
+                Also MARY does not support all German voices properly, e.g. uses phonene symbols that are not part of the voice.
                 So we simply ignore files that are too short or cause errors...
                 """
                 try:
