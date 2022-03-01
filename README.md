@@ -26,7 +26,8 @@ Scripts to generate the database and convert to audformat in Python.
 
 ## Usage
 
+* This has been tried ONLY on Ubuntu 20 (but should run with any linux)
 * try as first test the script say_emo.py:
 ```
-python scripts/sayEmo.py --text "das Boot ist voll aber es können noch Leute rein" --emo sad --voc de6 --wav test.wav
+python scripts/sayEmo.py --text "das Boot ist voll aber es können noch Leute rein" --emo sad --voc de6 --wav test.wav --play
 ```
