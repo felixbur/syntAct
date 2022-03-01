@@ -24,6 +24,7 @@ Scripts to generate the database and convert to audformat in Python.
 * (install other voices if you have a NLP for the language)
 * install python version >= 3.6
 * install and activate a python virtual environment
+* install required packages
 * adjust paths in scripts/constant.py
 
 ## Usage
