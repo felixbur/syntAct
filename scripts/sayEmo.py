@@ -31,7 +31,7 @@ if voc == 'de1' or voc == 'de3':
 
 if femalize:
 	cmd_make_pho = f'echo {text} | java -jar {constant.EMOFILT_PATH}emofilt.jar \
-	-cf {constant.EMOFILT_PATH}emofiltConfig.ini -mary -voc {voc} -e femalize -of {pho_file}'
+	-cf {constant.EMOFILT_CONFIG}emofiltConfig.ini -mary -voc {voc} -e femalize -of {pho_file}'
 else:
 	cmd_make_pho = f'echo {text} | java -jar {constant.EMOFILT_PATH}emofilt.jar \
 	-cf {constant.EMOFILT_PATH}emofiltConfig.ini -mary -voc {voc} -e neutral -of {pho_file}'
