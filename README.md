@@ -37,3 +37,36 @@ python scripts/sayEmo.py --text "das Boot ist voll aber es können noch Leute re
 ```
 python scripts/make_wavs.py --texts demo/texts.txt --of list.cs
 ```
+* Finally, you might try to make an [audformat](https://audeering.github.io/audformat/index.html) database with
+```
+python scripts/make_audformat_db.py
+```
+
+* If you like, you can try your new database with [nkululeko](https://github.com/felixbur/nkululeko/)
+* Here's a suggestions for an .ini file:
+```
+[EXP]
+root = ./tests/
+name = exp_syntact
+runs = 1
+epochs = 1
+save = True
+[DATA]
+databases = ['syntact']
+syntact = /home/felix/data/research/syntAct/syntact/
+syntact.split_strategy = speaker_split
+syntact.testsplit = 50
+syntact.value_counts = True
+target = emotion
+labels = ['angry', 'happy', 'neutral', 'sad']
+[FEATS]
+#type = trill
+type = os
+scale = standard
+[MODEL]
+type = svm
+save = True
+[PLOT]
+value_counts = True
+tsne = True
+```
