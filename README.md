@@ -22,7 +22,8 @@ Scripts to generate the database and convert to audformat in Python.
 * install the German voices de1, de2, de3, de4, de6, de7
 * (install other voices if you have a NLP for the language)
 * install python version >= 3.6
-* fit paths in scripts/constant.py
+* install and activate a python virtual environment
+* adjust paths in scripts/constant.py
 
 ## Usage
 
@@ -30,4 +31,9 @@ Scripts to generate the database and convert to audformat in Python.
 * try as first test the script say_emo.py:
 ```
 python scripts/sayEmo.py --text "das Boot ist voll aber es können noch Leute rein" --emo sad --voc de6 --wav test.wav --play
+```
+
+* Next, you might try to generate a whole set of wave files:
+```
+python scripts/make_wavs.py --texts demo/texts.txt --of list.cs
 ```
