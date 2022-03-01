@@ -30,8 +30,9 @@ Scripts to generate the database and convert to audformat in Python.
 
 * This has been tried ONLY on Ubuntu 20 (but should run with any linux)
 * try as first test the script say_emo.py:
+* REQUIRES the Mary4.x server to be started!
 ```
-python scripts/sayEmo.py --text "das Boot ist voll aber es können noch Leute rein" --emo sad --voc de6 --wav test.wav --play
+python scripts/sayEmo.py --text "Das ist mal ein kurzer Testsatz in trauriger Sprechweise." --emo sad --voc de6 --wav test.wav --play
 ```
 
 * Next, you might try to generate a whole set of wave files:
