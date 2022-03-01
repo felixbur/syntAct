@@ -1,60 +1,65 @@
 import os                       # file operations
 import pandas as pd             # work with tables
 pd.set_option('display.max_rows', 10)
-import audata.define as define  # some definitions
-import audata.utils as utils    # util functions
-from audata import Database, AudioInfo, Rater, Scheme, Split, Column, Table
-from audata.define import SplitType, RaterType
+import audformat.define as define  # some definitions
+import audformat.utils as utils    # util functions
+from audformat import Database, Rater, Scheme, Table, Media, Column
+from audformat.define import RaterType
+import sys
+sys.path.append("./scripts")
+import constant
+
+db_name = 'syntact'
+in_file = 'list.csv'
 
 db = Database(
-    name='synth_emofilt',
+    name=db_name,
     source='intern',
-    usage=define.Usage.COMMERCIAL,
-    languages=[utils.str_to_language('de')],
+    usage=define.Usage.UNRESTRICTED,
+    languages=[utils.map_language('de')],
     description='Synthesized audio files with emofilt in various emotions.')
 
-db.media['tts'] = AudioInfo(sampling_rate=16000, channels=1, format='wav')
+db.media['tts'] = Media(sampling_rate=16000, channels=1, format='wav')
 raters= {'gold'}
 
 for rater in raters:
     db.raters[rater] = Rater(RaterType.HUMAN)
 
 db.schemes['emotion'] = Scheme(
-    labels=['neutral', 'happy', 'bored', 'angry'],
+    labels=constant.EMOTIONS,
     description='Three basic emotions and neutral.')
-lang = utils.str_to_language('de').name
+lang = utils.map_language('de')
 map_speaker = {
-    95: {'gender': define.Gender.MALE, 'language': lang, 'name': 'de1'},
-    96: {'gender': define.Gender.FEMALE, 'language': lang, 'name': 'de2'},
-    97: {'gender': define.Gender.MALE, 'language': lang, 'name': 'de3'},
-    98: {'gender': define.Gender.FEMALE, 'language': lang, 'name': 'de4'},
-    99: {'gender': define.Gender.MALE, 'language': lang, 'name': 'de6'},
-    100: {'gender': define.Gender.FEMALE, 'language': lang, 'name': 'de7'},
+    'de1': {'gender': define.Gender.MALE, 'language': lang},
+    'de2': {'gender': define.Gender.FEMALE, 'language': lang},
+    'de3': {'gender': define.Gender.MALE, 'language': lang},
+    'de4': {'gender': define.Gender.FEMALE, 'language': lang},
+    'de6': {'gender': define.Gender.MALE, 'language': lang},
+    'de7': {'gender': define.Gender.FEMALE, 'language': lang},
 }
 db.schemes['speaker'] = Scheme(
         labels=map_speaker,
         description='Six mbrola voices for German')
 
-pathroot = '/home/fburkhardt/ResearchProjects/emotion-synthesizer/scripts/'
-filePath = pathroot + '/synthFiles.csv'
+pathroot = './'
+filePath = pathroot + in_file
 '''
 path,emotion,speaker
-wavs/000000_de1_happy_1.wav,happy,95
+wavs/000000_de1_happy_1.wav,happy,de1
 ...
 '''
 
-df_csv = pd.read_csv(filePath, index_col=[0], converters={'file': lambda x: os.path.join('/home/fburkhardt/audb/synth-emofilt/audio', x)})
-files=df_csv.index
+#df_csv = pd.read_csv(filePath, index_col=[0], converters={'file': lambda x: os.path.join('/home/fburkhardt/audb/synth-emofilt/audio', x)})
+df_csv = pd.read_csv(filePath, index_col=[0], header=0)
 
-db['emotion'] = Table(files=files)
-db['emotion']['emotion'] = Column(
+db['files'] = Table(index=df_csv.index)
+db['files']['emotion'] = Column(
     scheme_id='emotion',
-    rater_id='gold',
-    has_confidence=False)
-db['emotion']['emotion'].set(df_csv['emotion'])
-db['emotion']['speaker'] = Column(scheme_id='speaker')
-db['emotion']['speaker'].set(df_csv['speaker'])
+    rater_id='gold')
+db['files']['emotion'].set(df_csv['emotion'])
+db['files']['speaker'] = Column(scheme_id='speaker')
+db['files']['speaker'].set(df_csv['speaker'])
 
-path = os.path.expanduser('~/audb/synth_emofilt')
+path = f'./{db_name}'
 db.save(path)
 print(db)
