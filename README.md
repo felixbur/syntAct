@@ -73,3 +73,6 @@ save = True
 value_counts = True
 tsne = True
 ```
+
+## Screenshot
+![screenshot](images/Screenshot.png)
