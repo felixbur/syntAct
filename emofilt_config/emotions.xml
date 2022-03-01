@@ -49,7 +49,6 @@
 		<pitch>
 			<f0Range rate="140" />
 			<levelFocusStress rate="130" />
-
 			<variability rate="130" />
 			<contourFocusstress rate="10" type="fall" />
 			<levelFocusstress rate="130" />
@@ -61,11 +60,34 @@
 		</duration>
 		<phonation>
 			<vocalEffort effort="loud" />
-
 			<jitter rate="2" />
 		</phonation>
 		<articulation>
 			<vowelTarget target="overshoot" />
 		</articulation>
+	</emotion>
+	<emotion name="aroused" color="ff0000">
+		<pitch>
+			<f0Mean rate="120" />
+			<f0Range rate="120" />
+			<variability rate="120" />
+			<levelFocusstress rate="120" />
+		</pitch>
+		<duration>
+			<speechRate rate="80" />
+		</duration>
+		<phonation>
+			<vocalEffort effort="loud" />
+		</phonation>
+	</emotion>
+	<emotion name="relaxed" color="66ff66">
+		<pitch>
+			<phraseContour rate="20" type="straight" />
+			<lastSylContour rate="10" type="rise" />
+		</pitch>
+		<duration>
+			<speechRate rate="120" />
+			<durationFocusstressedSyls rate="140" />
+		</duration>
 	</emotion>
 </emotions>
