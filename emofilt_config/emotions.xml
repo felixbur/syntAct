@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<emotions>
+	<emotion name="femalize" color="0000cd">
+		<!-- just shift F0 upwards for female simulation, default is male (with MARY)-->
+		<pitch>
+			<f0Mean rate="140" />
+		</pitch>
+	</emotion>
+	<emotion name="neutral" color="000000" />
+
+
+	<emotion name="sad" color="0000cd">
+		<pitch>
+			<variability rate="80" />
+			<f0Range rate="80" />
+
+			<contourFocusstress rate="30" type="straight" />
+			<lastSylContour rate="10" type="rise" />
+		</pitch>
+		<phonation>
+			<jitter rate="10" />
+			<vocalEffort effort="soft" />
+		</phonation>
+		<duration>
+			<speechRate rate="140" />
+		</duration>
+		<articulation>
+			<vowelTarget target="undershoot" />
+		</articulation>
+	</emotion>
+	<emotion name="happy" color="ff4500">
+		<pitch>
+			<f0Mean rate="120" />
+			<f0Range rate="150" />
+
+			<contourFocusstress rate="70" type="rise" />
+			<levelFocusstress rate="110" />
+		</pitch>
+		<duration>
+			<durVLFric rate="150" />
+			<speechRate rate="70" />
+			<durVowel rate="130" />
+		</duration>
+		<phonation>
+			<vocalEffort effort="loud" />
+		</phonation>
+	</emotion>
+	<emotion name="angry" color="ff0000">
+		<pitch>
+			<f0Range rate="140" />
+			<levelFocusStress rate="130" />
+
+			<variability rate="130" />
+			<contourFocusstress rate="10" type="fall" />
+			<levelFocusstress rate="130" />
+		</pitch>
+		<duration>
+			<durVowel rate="70" />
+			<speechRate rate="70" />
+			<durationFocusstressedSyls rate="130" />
+		</duration>
+		<phonation>
+			<vocalEffort effort="loud" />
+
+			<jitter rate="2" />
+		</phonation>
+		<articulation>
+			<vowelTarget target="overshoot" />
+		</articulation>
+	</emotion>
+</emotions>
