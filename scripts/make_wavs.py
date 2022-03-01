@@ -1,38 +1,57 @@
 import  os
 import audiofile as af
+import audeer 
+import argparse
 
-phraseFile = '../news10K-sentences.txt'
-outFile = 'synthPhraseOut.csv'
-errorFile = 'synthPhraseErrors.csv'
+errorFile = './synth_errors.txt'
 
-with open(phraseFile) as f:
+
+parser = argparse.ArgumentParser(description='Script to generate synthesized wav files from text.')
+parser.add_argument('--texts', help='The texts file', required=True)
+parser.add_argument('--of', help='The output wave list', required=True)
+parser.add_argument('--play', help='To play the wav files', action='store_true')
+
+args = parser.parse_args()
+
+with open(args.texts) as f:
     phrases = f.readlines()
 
+out_file = args.of
+play = args.play
+
 phrases = [p.split('\t')[-1].strip() for p in phrases]
-# vocs = ['de1', 'de2', 'de3', 'de4', 'de6', 'de7']
-vocs = ['de6', 'de7']
-# emos = ['happy', 'angry', 'bored', 'neutral']
-emos = ['angry', 'neutral']
-phrasenum = 4000
-speakerIds = {'de1':95, 'de2':96, 'de3':97, 'de4':98, 'de6':99, 'de7':100}
+
+sexes = {'de1':'female', 'de2':'male', 'de3':'female', 'de4':'male', 'de6':'male', 'de7':'female'}
+
+vocs = ['de1', 'de2', 'de3', 'de4', 'de6', 'de7']
+#vocs = ['de6', 'de7']
+emos = ['happy', 'angry', 'sad', 'neutral']
+#emos = ['angry', 'neutral']
+# maximum number of generate wav files
+max_wave_num = 100
 index = 0
-path = '/home/fburkhardt/ResearchProjects/emotion-synthesizer/scripts/wavs/'
-for (vi, voc) in enumerate(vocs):
-   for (i, phrase) in enumerate(phrases[phrasenum*vi:(phrasenum*(vi+1))]):
-        for emo in emos:
-            text = str(1+phrasenum * vi + i)
-            name = '%s%s_%s_%s_%s.wav' % (path, str(index).zfill(6), voc, emo, text)
-#            print("%s" % (name))
-            cmd = './sayEmo.sh '+emo+' \"'+phrase+'\" '+voc+' '+name+ '> /dev/null 2>> error.log'
+path = audeer.mkdir('./wavs/')
+
+for vi, voc in enumerate(vocs):
+   for pi, phrase in enumerate(phrases):
+        for ei, emo in enumerate(emos):
+            if index>max_wave_num:
+                exit()
+            name = f'{voc}_{emo}_p{str(pi).zfill(6)}.wav'
+            cmd = f'python ./scripts/sayEmo.py --emo {emo} --text \"{phrase}\" --voc {voc} --wav {path}/{name}'
+            if play:
+                cmd += ' --play'
             os.system(cmd)
-            sig, sr = af.read(name)
-            if len(sig) == 0:
-                os.remove(name)
+            sig, sr = af.read(path+'/'+name)
+            if len(sig) <= 100:
+                try:
+                    os.remove(name)
+                except FileNotFoundError:
+                    pass
                 with open(errorFile, 'a') as ef:
                     ef.write('ERROR  on file %s\n' % name)
             else:
                 index += 1
-                vocId = speakerIds.get(voc)
-                with open(outFile, 'a') as of:
-                    results = "%s,%s,%s\n" % (name, emo, vocId)
+                with open(out_file, 'a') as of:
+                    results = f'{path}/{name}, {emo}, {voc}, {sexes[voc]}\n'
                     of.write(results)
