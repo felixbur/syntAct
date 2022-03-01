@@ -25,7 +25,7 @@ play_file = args.play
 # The weird thing is that MARY seems to diregard the voice sex, so the base F0 is always for men. 
 # That's why we shift for females the mean F0 upwards
 femalize = False
-if voc == 'de1' or voc == 'de3' or voc == 'de7':
+if voc == 'de1' or voc == 'de3':
 	femalize = True
 
 
