@@ -5,3 +5,7 @@ MBROLA_DB_PATH = '/home/felix/bin/MARY4/lib/voices/'
 VOICES = ['de7']
 EMOTIONS = ['happy', 'angry', 'sad', 'neutral']
 SEXES = {'de1':'female', 'de2':'male', 'de3':'female', 'de4':'male', 'de6':'male', 'de7':'female'}
+# Minimal sensible length for audio files (in bytes)
+MIN_LENGTH = 500
+# A file name to remember errors
+ERROR_FILE = 'errors.txt'

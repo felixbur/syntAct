@@ -5,6 +5,8 @@ import argparse
 import sys
 sys.path.append("./scripts")
 import constant
+import shared 
+import numpy as np
 
 # error messages should go here
 error_file = './synth_errors.txt'
@@ -17,35 +19,10 @@ parser.add_argument('--of', help='The output wave list', required=True)
 parser.add_argument('--change_phrase', help='Whether the emotions get different phrases or each\
      phrase in all emotions', action='store_true')
 parser.add_argument('--play', help='To play the wav files', action='store_true')
+parser.add_argument('--grades', help='Whether grades should be used', action='store_true')
+parser.add_argument('--random_grade', help='Whether grades should be randomly distributed', action='store_true')
 
 args = parser.parse_args()
-
-def make_wav(voc, emo, phrase, index):
-    name = f'{voc}_{emo}_p{str(pi).zfill(6)}.wav'
-    cmd = f'python ./scripts/sayEmo.py --emo {emo} --text \"{phrase}\" --voc {voc} --wav {path}/{name}'
-    if play:
-        cmd += ' --play'
-    os.system(cmd)
-    sig, sr = af.read(path+name)
-    if len(sig) < min_length:
-        """ There is quite a lot of stuff that might go wrong, emofilt has the tendency to make pho file unrenderable 
-        (eg. when phonemes become too short or because of vowel target over/undershoot).
-        Also MARY does not support all German voices properly, e.g. uses phonene symbols that are not part of the voice.
-        So we simply ignore files that are too short or cause errors...
-        """
-        try:
-            os.remove(name)
-        except FileNotFoundError:
-            pass
-        with open(error_file, 'a') as ef:
-            ef.write('ERROR  on file %s\n' % name)
-        return index
-    else:
-        with open(out_file, 'a') as of:
-            results = f'{path}{name},{emo},{voc},{constant.SEXES[voc]}\n'
-            of.write(results)
-        return index + 1
-
 
 with open(args.texts) as f:
     phrases = f.readlines()
@@ -63,25 +40,52 @@ index = 0
 path = audeer.mkdir(wav_folder)+'/'
 
 with open(out_file, 'a') as of:
-    of.write('file,emotion,speaker,gender\n')
+    of.write('file,emotion,speaker,gender,intensity\n')
 
-# our field of emotions
-emotions = constant.EMOTIONS
+if args.grades:
+    arousal_dim =['aroused', 'relaxed']
+    if args.random_grade:
+        steps = np.random.normal(0, .8, 3)
+    else:
+        steps = [-.5,  0, .5, 1]
 
-if args.change_phrase:
-    for vi, voc in enumerate(constant.VOICES):
-        for pi, phrase in enumerate(phrases):
-            if index>max_wave_num:
-                exit()
-            emo_index = pi % len(emotions)-1
-            emo = emotions[emo_index]
-            index = make_wav(voc, emo, phrase, index)
-else:
-    for vi, voc in enumerate(constant.VOICES):
-        for pi, phrase in enumerate(phrases):
-            for ei, emo in enumerate(constant.EMOTIONS):
+    if args.change_phrase:
+        for vi, voc in enumerate(constant.VOICES):
+            for pi, phrase in enumerate(phrases):
                 if index>max_wave_num:
                     exit()
-                index = make_wav(voc, emo, phrase, index)
-
-
+                step_index = pi % len(steps)
+                dim_index = int(pi / len(steps))
+                dim = arousal_dim[dim_index]
+                grade = steps[step_index]
+                index = shared.make_wav(voc, dim, grade, phrase, pi, index, path, play, out_file)
+    else:
+        for vi, voc in enumerate(constant.VOICES):
+            for pi, phrase in enumerate(phrases):
+                for dim in arousal_dim:
+                    for grade in steps:
+                        if index>max_wave_num:
+                            exit()
+                        step_index = pi % len(steps)
+                        dim_index = int(pi / len(steps))
+                        dim = arousal_dim[dim_index]
+                        grade = steps[step_index]
+                        index = shared.make_wav(voc, dim, grade, phrase, pi, index, path, play, out_file)
+else:
+    # our field of emotions
+    emotions = constant.EMOTIONS
+    if args.change_phrase:
+        for vi, voc in enumerate(constant.VOICES):
+            for pi, phrase in enumerate(phrases):
+                if index>max_wave_num:
+                    exit()
+                emo_index = pi % len(emotions)-1
+                emo = emotions[emo_index]
+                index = shared.make_wav(voc, emo, -1, phrase, pi, index, path, play, out_file)
+    else:
+        for vi, voc in enumerate(constant.VOICES):
+            for pi, phrase in enumerate(phrases):
+                for ei, emo in enumerate(constant.EMOTIONS):
+                    if index>max_wave_num:
+                        exit()
+                    index = shared.make_wav(voc, emo, -1, phrase, pi, index, path, play, out_file)

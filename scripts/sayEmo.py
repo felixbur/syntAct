@@ -39,7 +39,12 @@ os.system(cmd_make_pho)
 
 # then we do the emotional simulation
 cmd_emotionalize = f'java -jar {constant.EMOFILT_PATH}emofilt.jar \
--cf {constant.EMOFILT_CONFIG}emofiltConfig.ini -if {pho_file} -voc {voc} -e {emo} -gr {grade} -of {pho_file}'
+-cf {constant.EMOFILT_CONFIG}emofiltConfig.ini -if {pho_file} -voc {voc} -e {emo} -of {pho_file}'
+# add the grade if necessary (grade/intensity goes from -1 for nothing to 1 for double effect, 
+# with 0 being the "normal" grade)
+if grade != -1:
+	cmd_emotionalize += f' -gr {grade}'
+
 os.system(cmd_emotionalize)
 
 # lastly, we synthesize the pho file
