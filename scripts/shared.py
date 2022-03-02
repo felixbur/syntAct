@@ -5,7 +5,10 @@ sys.path.append("./scripts")
 import constant
 
 def make_wav(voc, emo, grade, phrase, pi, index, path, play, out_file):
-    name = f'{voc}_{emo}_p{str(pi).zfill(6)}_{grade:.3f}.wav'
+    name = f'{voc}_{emo}_p{str(pi).zfill(6)}'
+    if grade != -1:
+        name += f'_{grade:.3f}'
+    name += '.wav'
     cmd = f'python ./scripts/sayEmo.py --emo {emo} --text \"{phrase}\" --voc {voc} \
         --grade {grade} --wav {path}/{name}'
     if play:
