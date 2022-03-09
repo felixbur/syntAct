@@ -5,6 +5,21 @@ sys.path.append("./scripts")
 import constant
 
 def make_wav(voc, emo, grade, phrase, pi, index, path, play, out_file):
+    """ generate a wav file.
+        Args:
+            voc: the Mbrola voice
+            emo: the emotion name
+            grade: the grade of the emotion
+            phrase: the text that should be synthesized
+            pi: the phrase index, for naming
+            index: the index
+            path: where to write the file
+            play: whether to play back the file for control
+            out_file: the list file to add the newly created wav file 
+        Returns:
+            the new index, incremented if wav file successfully created
+    
+    """
     name = f'{voc}_{emo}_p{str(pi).zfill(6)}'
     if grade != -1:
         name += f'_{grade:.3f}'
