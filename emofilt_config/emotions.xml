@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <emotions>
-	<emotion name="femalize" color="0000cd">
-		<!-- just shift F0 upwards for female simulation, default is male (with MARY)-->
+	<emotion name="femalize" color="0000cd">		<!-- just shift F0 upwards for female simulation, default is male (with MARY)-->
 		<pitch>
 			<f0Mean rate="140" />
 		</pitch>
 	</emotion>
 	<emotion name="neutral" color="000000" />
-
-
 	<emotion name="sad" color="0000cd">
 		<pitch>
 			<variability rate="80" />
 			<f0Range rate="80" />
-
 			<contourFocusstress rate="30" type="straight" />
 			<lastSylContour rate="10" type="rise" />
 		</pitch>
@@ -88,5 +84,17 @@
 			<speechRate rate="120" />
 			<durationFocusstressedSyls rate="140" />
 		</duration>
+	</emotion>
+	<emotion name="positive" color="ffcc33">
+		<pitch>
+			<contourFromStress rate="150" />
+			<contourWordstress rate="10" type="straight" />
+		</pitch>
+	</emotion>
+	<emotion name="negative" color="3333ff">
+		<pitch>
+			<contourFromStress rate="70" />
+			<contourFocusstress rate="20" type="fall" />
+		</pitch>
 	</emotion>
 </emotions>
