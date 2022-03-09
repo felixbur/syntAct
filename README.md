@@ -1,7 +1,7 @@
 # syntAct
 Scripts to generate a database of simulated emotional vocal expression.
 
-These scripts might help to synthesize a database of simulated emotional expression.
+These scripts synthesize a database of simulated emotional expression.
 Out-of-the box it only works in German, but potentially in all languages supported by Mbrola (34 languages)
 
 You need in addition:
@@ -14,6 +14,12 @@ You need in addition:
 ## Contents
 ### scripts
 Scripts to generate the database and convert to audformat in Python.
+* **constant.py**: constant values
+* **make_audformat_db.py**: generate a database that loads with audb/audformat
+* **make_wavs_categories.py**: generate a set of wav files and a database list for emotional categories (to be stated in constant.py) 
+* **make_wavs_dimensions.py**: generate a set of wav files and a database list for emotional dimensions (to be stated in constant.py) 
+* **say_emo.py**: sccript to generate a single wav file
+* **shared.py**: helper functions shared by the mains scripts
 
 ## Installation
 
