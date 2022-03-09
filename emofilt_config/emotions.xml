@@ -31,9 +31,8 @@
 	<emotion name="happy" color="ff4500">
 		<pitch>
 			<f0Mean rate="120" />
-			<f0Range rate="150" />
-
-			<contourFocusstress rate="70" type="rise" />
+			<f0Range rate="130" />
+			<contourFocusstress rate="40" type="rise" />
 			<levelFocusstress rate="110" />
 		</pitch>
 		<duration>
