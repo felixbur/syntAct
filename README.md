@@ -44,7 +44,7 @@ python scripts/sayEmo.py --text "Das ist mal ein kurzer Testsatz in trauriger Sp
 
 * Next, you might try to generate a whole set of wave files:
 ```
-python scripts/make_wavs.py --texts demo/texts.txt --of list.cs --wavs wavs
+python scripts/make_wavs_categories.py --texts demo/texts.txt
 ```
 * Finally, you might try to make an [audformat](https://audeering.github.io/audformat/index.html) database with
 ```
