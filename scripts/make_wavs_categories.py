@@ -41,7 +41,7 @@ index = 0
 path = audeer.mkdir(wav_folder)+'/'
 
 with open(out_file, 'a') as of:
-    of.write('file,emotion,speaker,gender\n')
+    of.write('file,speaker,gender,emotion\n')
 
 # our set of categorical emotions
 emotions = constant.EMOTIONS
