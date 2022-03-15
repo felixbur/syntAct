@@ -53,6 +53,7 @@ while index<max_wave_num:
             emo = emotions[emo_index]
             index = shared.make_wav_cat(voc, emo, phrase, phrase_index, index, path, play, out_file)
     else:
+        # else we use the same phrase for all voices and all emotion categories
         phrase = phrases[phrase_index]
         for vi, voc in enumerate(voices):
             for ei, emo in enumerate(emotions):
