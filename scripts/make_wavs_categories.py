@@ -32,26 +32,29 @@ wav_folder = args.wavs
 phrases = [p.split('\t')[-1].strip() for p in phrases]
 
 # maximum number of generate wav files
-max_wave_num = 100000
+max_wave_num = 40
 min_length = 500
 index = 0
 path = audeer.mkdir(wav_folder)+'/'
 
+with open(out_file, 'a') as of:
+    of.write('file,emotion,speaker,gender\n')
 
 # our set of categorical emotions
 emotions = constant.EMOTIONS
-if args.change_phrase:
-    for vi, voc in enumerate(constant.VOICES):
-        for pi, phrase in enumerate(phrases):
-            if index>max_wave_num:
-                exit()
-            emo_index = pi % len(emotions)-1
+voices = constant.VOICES
+phrase_index = 0
+while index<max_wave_num:
+    if args.change_phrase:
+        # if we want a new phrase for each sentence 
+        for vi, voc in enumerate(voices):
+            phrase = phrases[phrase_index]
+            emo_index = phrase_index % len(emotions) - 1
             emo = emotions[emo_index]
-            index = shared.make_wav(voc, emo, -1, phrase, pi, index, path, play, out_file)
-else:
-    for vi, voc in enumerate(constant.VOICES):
-        for pi, phrase in enumerate(phrases):
-            for ei, emo in enumerate(constant.EMOTIONS):
-                if index>max_wave_num:
-                    exit()
-                index = shared.make_wav(voc, emo, -1, phrase, pi, index, path, play, out_file)
+            index = shared.make_wav_cat(voc, emo, phrase, phrase_index, index, path, play, out_file)
+    else:
+        phrase = phrases[phrase_index]
+        for vi, voc in enumerate(voices):
+            for ei, emo in enumerate(emotions):
+                index = shared.make_wav_cat(voc, emo, phrase, phrase_index, index, path, play, out_file)
+        phrase_index += 1
