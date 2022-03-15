@@ -39,17 +39,22 @@ Scripts to generate the database and convert to audformat in Python.
 * try as first test the script say_emo.py:
 * REQUIRES the Mary4.x server to be started!
 ```
-python scripts/sayEmo.py --text "Das ist mal ein kurzer Testsatz in trauriger Sprechweise." --emo sad --voc de6 --wav test.wav --play
+python scripts/say_emo.py --text "Das ist mal ein kurzer Testsatz in trauriger Sprechweise." --emo sad --voc de6 --wav test.wav --play
 ```
 
-* Next, you might try to generate a whole set of wave files:
+* Next, you might try to generate a whole set of wave files for categories:
 ```
-python scripts/make_wavs_categories.py --texts demo/texts.txt
+python scripts/make_wavs_categories.py --texts demo/texts.txt --num 20
+```
+* Then you might try to generate a set of wave files with simulated arousal and valence dimension
+```
+python scripts/make_wavs_dimensions.py --texts --texts demo/texts.txt --num 5
 ```
 * Finally, you might try to make an [audformat](https://audeering.github.io/audformat/index.html) database with
 ```
 python scripts/make_audformat_db.py
 ```
+
 
 * If you like, you can try your new database with [nkululeko](https://github.com/felixbur/nkululeko/)
 * Here's a suggestions for an .ini file:
