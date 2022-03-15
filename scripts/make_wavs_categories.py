@@ -1,4 +1,6 @@
+from http.client import REQUESTED_RANGE_NOT_SATISFIABLE
 import  os
+from urllib import request
 import audiofile as af
 import audeer 
 import argparse
@@ -7,6 +9,8 @@ sys.path.append("./scripts")
 import constant
 import shared 
 import numpy as np
+import requests
+from requests.exceptions import ConnectionError
 
 # error messages should go here
 error_file = './synth_errors.txt'
@@ -30,6 +34,14 @@ out_file = args.of
 play = args.play
 wav_folder = args.wavs
 num = int(args.num)
+
+# first check, if the MARY server is running
+try:
+    page = requests.get('http://localhost:59125')
+except ConnectionError:
+    print('please start a MARY 4.x server')
+    quit()
+
 
 phrases = [p.split('\t')[-1].strip() for p in phrases]
 

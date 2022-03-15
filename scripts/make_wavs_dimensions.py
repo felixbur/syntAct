@@ -8,6 +8,8 @@ import constant
 import shared 
 import random
 import numpy as np
+import requests
+from requests.exceptions import ConnectionError
 
 # error messages should go here
 error_file = './synth_errors.txt'
@@ -39,6 +41,14 @@ min_length = constant.MIN_LENGTH
 index = 0
 phrase_index = 0
 path = audeer.mkdir(wav_folder)+'/'
+
+# first check, if the MARY server is running
+try:
+    page = requests.get('http://localhost:59125')
+except ConnectionError:
+    print('please start a MARY 4.x server')
+    quit()
+
 
 with open(out_file, 'a') as of:
     of.write('file,emotion,speaker,gender,arousal,valence\n')
