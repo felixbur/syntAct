@@ -2,3 +2,4 @@ audformat
 pandas
 audeer
 audiofile
+requests
