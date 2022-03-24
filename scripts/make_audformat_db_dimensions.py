@@ -19,10 +19,6 @@ db = Database(
     description='Synthesized audio files with emofilt in various grades of arousal and valence.')
 
 db.media['tts'] = Media(sampling_rate=16000, channels=1, format='wav')
-raters= {'gold'}
-
-for rater in raters:
-    db.raters[rater] = Rater(RaterType.HUMAN)
 
 db.schemes['arousal'] = Scheme(
     DataType.FLOAT,
@@ -58,8 +54,8 @@ file,speaker,gender,arousal,valence
 ...
 '''
 
-#df_csv = pd.read_csv(filePath, index_col=[0], converters={'file': lambda x: os.path.join('/home/fburkhardt/audb/synth-emofilt/audio', x)})
-df_csv = pd.read_csv(filePath, index_col=[0], header=0)
+df_csv = pd.read_csv(filePath, index_col=[0], converters={'file': lambda x: './synthesized_audio/'+os.path.basename(x)})
+#df_csv = pd.read_csv(filePath, index_col=[0], header=0)
 
 
 # re-scale the values from 0-1
