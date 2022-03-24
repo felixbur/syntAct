@@ -26,14 +26,14 @@ for rater in raters:
 
 db.schemes['arousal'] = Scheme(
     DataType.FLOAT,
-    minimum=-2,
-    maximum=2,
+    minimum=0,
+    maximum=1,
     description='A value for arousal')
 
 db.schemes['valence'] = Scheme(
     DataType.FLOAT,
-    minimum=-2,
-    maximum=2,
+    minimum=0,
+    maximum=1,
     description='A value for valence')
 
 lang = utils.map_language('de')
