@@ -11,6 +11,8 @@ You need in addition:
 * the [MARY tts software version 4.3.1](http://mary.dfki.de/download/index.html#mary-tts-4x) (version 5 is without Mbrola support)
 * the [MBROLA software](https://github.com/numediart/MBROLA)
 
+A [paper](http://felix.syntheticspeech.de/publications/synthetic_database.pdf) on syntAct got accepted at the [Dataset Creation for Lower-Resourced Languages](https://dclrl.github.io/) workshop in conjunctin with LREC 2022.
+
 ## Contents
 ### scripts
 Scripts to generate the database and convert to audformat in Python.
