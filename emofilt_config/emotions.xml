@@ -61,6 +61,39 @@
 			<vowelTarget target="overshoot" />
 		</articulation>
 	</emotion>
+	<emotion name="bored" color="9ac0cd">
+		<pitch>
+			<f0Mean rate="120" />
+			<phraseContour rate="40" type="fall" />
+		</pitch>
+		<duration>
+			<speechRate rate="120" />
+			<durationFocusstressedSyls rate="120" />
+		</duration>
+		<phonation>
+			<vocalEffort effort="soft" />
+		</phonation>
+	</emotion>
+	<emotion name="scared" color="32cd32">
+		<pitch>
+			<phraseContour rate="10" type="rise" />
+			<contourFocusstress rate="10" type="straight" />
+			<lastSylContour rate="10" type="rise" />
+			<f0Mean rate="200" />
+		</pitch>
+		<duration>
+			<speechRate rate="70" />
+			<durationFocusstressedSyls rate="80" />
+			<durPause rate="200" />
+		</duration>
+		<phonation>
+			<jitter rate="5" />
+			<vocalEffort effort="loud" />
+		</phonation>
+		<articulation>
+			<vowelTarget target="undershoot" />
+		</articulation>
+	</emotion>
 	<emotion name="aroused" color="ff0000">
 		<pitch>
 			<f0Mean rate="120" />
