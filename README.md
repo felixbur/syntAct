@@ -48,6 +48,8 @@ python scripts/say_emo.py --text "Das ist mal ein kurzer Testsatz in trauriger S
 ```
 python scripts/make_wavs_categories.py --texts demo/texts.txt --num 20
 ```
+    The generated audio files should appear in a newly created folder called *synthesized_audio* and the file list in a file called *synth_out.csv*  
+
 * Then you might try to generate a set of wave files with simulated arousal and valence dimension
 ```
 python scripts/make_wavs_dimensions.py --texts --texts demo/texts.txt --num 5
