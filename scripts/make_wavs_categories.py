@@ -63,15 +63,18 @@ while index<max_wave_num:
     if args.change_phrase:
         # if we want a new phrase for each sentence 
         for vi, voc in enumerate(voices):
-            phrase = phrases[phrase_index]
-            emo_index = phrase_index % len(emotions) - 1
-            emo = emotions[emo_index]
-            index = shared.make_wav_cat(voc, emo, phrase, phrase_index, index, path, play, out_file)
-            phrase_index += 1
+            for ei, emo in enumerate(emotions):
+                phrase = phrases[phrase_index]
+                index = shared.make_wav_cat(voc, emo, phrase, phrase_index, index, path, play, out_file)
+                phrase_index += 1
+                if index>max_wave_num:
+                    exit()
     else:
         # else we use the same phrase for all voices and all emotion categories
         phrase = phrases[phrase_index]
         for vi, voc in enumerate(voices):
             for ei, emo in enumerate(emotions):
                 index = shared.make_wav_cat(voc, emo, phrase, phrase_index, index, path, play, out_file)
+                if index>max_wave_num:
+                    exit()
         phrase_index += 1

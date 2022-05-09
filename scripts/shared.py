@@ -3,6 +3,7 @@ import audiofile as af
 import sys
 sys.path.append("./scripts")
 import constant
+from os.path import exists
 
 def make_wav_cat(voc, emo, phrase, pi, index, path, play, out_file):
     """ generate a wav file.
@@ -24,6 +25,10 @@ def make_wav_cat(voc, emo, phrase, pi, index, path, play, out_file):
     name += '.wav'
     cmd = f'python ./scripts/say_emo.py --emo {emo} --text \"{phrase}\" --voc {voc} \
         --wav {path}/{name}'
+    if exists(f'{path}/{name}'):
+        # if the file has been created on a previous occasion, use it
+        print(f'skipping {path}/{name}')
+        return index + 1
     if play:
         cmd += ' --play'
     os.system(cmd)
@@ -35,7 +40,7 @@ def make_wav_cat(voc, emo, phrase, pi, index, path, play, out_file):
         So we simply ignore files that are too short or cause errors...
         """
         try:
-            os.remove(name)
+            os.remove(path+name)
         except FileNotFoundError:
             pass
         with open(constant.ERROR_FILE, 'a') as ef:
