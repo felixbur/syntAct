@@ -71,8 +71,8 @@ for split, speakers in split2speakers.items():
     db.splits[split] = Split(type=split)
     split_category_df = df_csv[df_csv['speaker'].isin(speakers)]
     db[f'emotion.categories.{split}.desired'] = Table(index=split_category_df.index, split_id=split)
-    db[f'emotion.dimensions.{split}.desired']['emotion'] = Column(scheme_id='emotion', rater_id='desired')
-    db[f'emotion.dimensions.{split}.desired']['emotion'].set(split_category_df['emotion'])
+    db[f'emotion.categories.{split}.desired']['emotion'] = Column(scheme_id='emotion', rater_id='desired')
+    db[f'emotion.categories.{split}.desired']['emotion'].set(split_category_df['emotion'])
         
 path = f'./{db_name}'
 db.save(path)
