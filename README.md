@@ -1,6 +1,6 @@
 # syntAct
 Scripts to generate a database of simulated emotional vocal expression.
-
+ 
 These scripts synthesize a database of simulated emotional expression.
 Out-of-the box it only works in German, but potentially in all languages supported by Mbrola (34 languages)
 
