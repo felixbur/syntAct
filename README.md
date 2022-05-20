@@ -58,6 +58,10 @@ python scripts/make_wavs_dimensions.py --texts --texts demo/texts.txt --num 5
 ```
 python scripts/make_audformat_db.py
 ```
+* Careful, not all voice files result in 16kHz sampling rate, some are 22kHz. You might want to unify this with
+```
+for f in `ls synthesized_audio`; do `sox synthesized_audio/$f -r 16000 tmp/$f`; done
+```
 
 
 * If you like, you can try your new database with [nkululeko](https://github.com/felixbur/nkululeko/)
