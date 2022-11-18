@@ -6,7 +6,10 @@ A paper with evaluation is
 
 *Going Retro: Astonishingly Simple Yet Effective Rule-based Prosody Modelling for Speech Synthesis Simulating Emotion Dimensions*
 
-The demo_samples containes some demo audio files 
+The code is a running flask http application and can be found [here](http_interface/audio_services/)
+
+
+Here are some demo audio files 
 
 | arousal/valence | 0.0 | 0.5 | 1.0 |
 |-----------------|-----|-----|-----|
