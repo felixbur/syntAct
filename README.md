@@ -1,7 +1,16 @@
 # syntAct
 Scripts to generate a database of simulated emotional vocal expression.
- 
+
+
 These scripts synthesize a database of simulated emotional expression.
+
+NEW! we added scripts to do this with SSML tags to support the paper
+
+*Going Retro: Astonishingly Simple Yet Effective Rule-based Prosody Modelling for Speech Synthesis Simulating Emotion Dimensions*
+
+[Go here to get started on SSML](ssml)
+
+
 Out-of-the box it only works in German, but potentially in all languages supported by Mbrola (34 languages)
 
 You need in addition:
