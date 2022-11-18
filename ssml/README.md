@@ -10,6 +10,6 @@ The demo_samples containes some demo audio files
 
 | arousal/valence | 0.0 | 0.5 | 1.0 |
 |-----------------|-----|-----|-----|
-| 0.0             |[wav](Demo_samples/0.0-0.0.wav)|[wav](Demo_samples/0.0-5.0.wav)|[wav](Demo_samples/0.0-1.0.wav)|
-| 0.5             |[wav](Demo_samples/0.5-0.0.wav)|[wav](Demo_samples/5.0-5.0.wav)|[wav](Demo_samples/0.5-1.0.wav)|
-| 1.0             |[wav](Demo_samples/1.0-0.0.wav)|[wav](Demo_samples/1.0-0.5.wav)|[wav](Demo_samples/1.0-1.0.wav)|
+| 0.0             |[wav](demo_samples/0.0-0.0.wav)|[wav](demo_samples/0.0-5.0.wav)|[wav](demo_samples/0.0-1.0.wav)|
+| 0.5             |[wav](demo_samples/0.5-0.0.wav)|[wav](demo_samples/5.0-5.0.wav)|[wav](demo_samples/0.5-1.0.wav)|
+| 1.0             |[wav](demo_samples/1.0-0.0.wav)|[wav](demo_samples/1.0-0.5.wav)|[wav](demo_samples/1.0-1.0.wav)|
